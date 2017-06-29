@@ -1,8 +1,14 @@
 import { states } from './States.js';
 
+/*
+ * This class simply helps us coordinate the transitions
+ * between states. We've hardcoded the state "tree" in 
+ * the constructor. This class makes sure that any
+ * transition between states requested by the app
+ * are valid.
+ */
 export class StateMachine {
   constructor() {
-
     this.transitions = {
       [states.WELCOME] : [states.VEHICLE_CHOOSE],
       [states.VEHICLE_CHOOSE] : [states.BOAT, states.CAR],
@@ -13,13 +19,12 @@ export class StateMachine {
     };
   }
 
-  reverseObject(obj) {
+  _reverseObject(obj) {
     let reversed = {};
-
     for(const key in obj) {
       if(obj.hasOwnProperty(key)) {
         obj[key].forEach((i) => {
-          if(reversed[i] == undefined) {
+          if(reversed[i] === undefined) {
             reversed[i] = [key];
           } else {
             reversed[i].push(key);
@@ -30,7 +35,7 @@ export class StateMachine {
     return reversed;
   }
 
-  checkState(available, desired) {
+  _checkState(available, desired) {
     if (available.includes(desired)) {
       return desired;
     } else {
@@ -40,12 +45,12 @@ export class StateMachine {
 
   transitionTo(current, desired) {
     let available = this.transitions[current].concat();
-    return this.checkState(available, desired);
+    return this._checkState(available, desired);
   }
 
   transitionFrom(current, desired) {
-    let reversed = this.reverseObject(this.transitions);
+    let reversed = this._reverseObject(this.transitions);
     let available = reversed[current].concat();
-    return this.checkState(available, desired);
+    return this._checkState(available, desired);
   }
 }

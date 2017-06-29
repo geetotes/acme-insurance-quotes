@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Checkbox, Container, Header, Button, Grid, Message, List } from 'semantic-ui-react';
+import { Form, Button, Grid, Message, List } from 'semantic-ui-react';
 import { states } from './States.js';
 
 export const Welcome = (props) => {
@@ -156,7 +156,7 @@ class BaseForm extends Component {
             onChange={this._onChange}
             label='Year' 
             placeholder='Year'/>
-          {this.props.type == 'Boat' &&
+          {this.props.type === 'Boat' &&
             <Form.Input 
               name='length'
               value={this.state.length}
@@ -212,6 +212,7 @@ export class BoatDetail extends Component {
   }
 
   _validate(e) {
+    // You can add validation logic here
     this.props.next(states.CONFIRM)
   }
 
@@ -240,7 +241,7 @@ export class BoatDetail extends Component {
         </Form.Field>
         <Grid>
           <Grid.Column floated='left' width={5}>
-            <Button secondary onClick={() => this.props.back(states.BOAT_DETAIL)}>Back</Button>
+            <Button secondary onClick={() => this.props.back(states.BOAT)}>Back</Button>
           </Grid.Column>
           <Grid.Column floated='right' width={5}>
             <Button primary onClick={this._validate}>Next</Button>
@@ -252,10 +253,12 @@ export class BoatDetail extends Component {
 }
 
 export class Confirm extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
+    /*
+     * Here is our final step. In the real world, we would
+     * obviously do something more complicated than a javascript
+     * alert
+     */
     return(
       <Grid>
         <Grid.Row>

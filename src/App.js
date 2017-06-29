@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Header, Button, Grid } from 'semantic-ui-react'
+import { Container, Header, } from 'semantic-ui-react'
 import { Welcome, VehicleChoose, CarForm, BoatForm, BoatDetail, Confirm } from './Steps.js';
 import { states } from './States.js';
 import { StateMachine } from './StateMachine.js';
@@ -77,7 +77,7 @@ class App extends Component {
           next={this._next} />);
       default:
         return(<Welcome next={this._next}/>);
-    };
+    }
   }
   render() {
     return (
